@@ -11,7 +11,7 @@ const Game = () => {
   return (
     <div>
       <h4>{`${constants.PLAYER_NEXT} ${gameState.activePlayer}`}</h4>
-      <Square />
+      <Square value={gameState.activePlayer} />
     </div>
   );
 };
