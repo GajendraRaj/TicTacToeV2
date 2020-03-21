@@ -8,10 +8,24 @@ const Game = () => {
   };
   const [gameState, setGameState] = useState(initialState);
 
+  const renderSquare = () => {
+    let squareList = [];
+
+    for (let i = 0; i < 9; i++) {
+      squareList.push(
+        <li key={i}>
+          <Square value={gameState.activePlayer} />
+        </li>
+      );
+    }
+
+    return squareList;
+  };
+
   return (
     <div>
       <h4>{`${constants.PLAYER_NEXT} ${gameState.activePlayer}`}</h4>
-      <Square value={gameState.activePlayer} />
+      <ul>{renderSquare()}</ul>
     </div>
   );
 };
