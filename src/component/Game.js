@@ -33,12 +33,18 @@ const Game = () => {
     setSquare(filledSquares);
     setGameState(prevState => ({
       ...prevState,
-      activePlayer: constants.PLAYER_X
+      activePlayer: getInactivePlayer()
     }));
   };
 
   const getFilledSquaresValue = index => {
     return square[index] || "";
+  };
+
+  const getInactivePlayer = () => {
+    return gameState.activePlayer === constants.PLAYER_X
+      ? constants.PLAYER_O
+      : constants.PLAYER_X;
   };
 
   return (

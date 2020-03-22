@@ -43,4 +43,15 @@ describe("Game component functionality", () => {
 
     expect(squareButtonList.at(1).text()).toEqual(constants.PLAYER_X);
   });
+
+  it("Should update the filled square with active player", () => {
+    const squareButton1 = wrapper.find("ul li button").at(0);
+    const squareButton4 = wrapper.find("ul li button").at(4);
+
+    squareButton1.simulate("click");
+    squareButton4.simulate("click");
+
+    expect(squareButton1.text()).toEqual(constants.PLAYER_X);
+    expect(squareButton4.text()).toEqual(constants.PLAYER_O);
+  });
 });
