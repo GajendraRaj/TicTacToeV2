@@ -52,7 +52,8 @@ const Game = () => {
   const checkActivePlayerWintheGame = () => {
     if (
       isAnyRowCompletedByTheActivePlayer() ||
-      isAnyColumnCompletedByTheActivePlayer()
+      isAnyColumnCompletedByTheActivePlayer() ||
+      isAnyDiagonalCompletedByTheActivePlayer()
     ) {
       setGameState(prevState => ({
         ...prevState,
@@ -120,6 +121,39 @@ const Game = () => {
       filledSquares[columnStartIndex] === activePlayer &&
       filledSquares[columnStartIndex + totalColumns] === activePlayer &&
       filledSquares[columnStartIndex + 2 * totalColumns] === activePlayer
+    );
+  };
+
+  const isAnyDiagonalCompletedByTheActivePlayer = () => {
+    const totalDiagonals = 2;
+    let isPlayerWin = false;
+
+    for (
+      let diagonalIndex = 0;
+      diagonalIndex < totalDiagonals;
+      diagonalIndex++
+    ) {
+      if (isDiagonalCompletedByTheActivePlayer(diagonalIndex)) {
+        isPlayerWin = true;
+        break;
+      }
+    }
+
+    return isPlayerWin;
+  };
+
+  const isDiagonalCompletedByTheActivePlayer = index => {
+    const diagonalIndexList = [
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+    const filledSquares = square;
+    const activePlayer = gameState.activePlayer;
+
+    return (
+      filledSquares[diagonalIndexList[index][0]] === activePlayer &&
+      filledSquares[diagonalIndexList[index][1]] === activePlayer &&
+      filledSquares[diagonalIndexList[index][2]] === activePlayer
     );
   };
 

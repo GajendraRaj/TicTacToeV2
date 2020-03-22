@@ -90,4 +90,22 @@ describe("Game component functionality", () => {
     const winnerMessage = wrapper.find("p").at(0);
     expect(winnerMessage.text()).toEqual("Player X win the game");
   });
+
+  it("Should display win message if any diagonal completed by active player", () => {
+    const squareButtonList = wrapper.find("ul li .square-button");
+    const squareButton0 = squareButtonList.at(0);
+    const squareButton1 = squareButtonList.at(1);
+    const squareButton2 = squareButtonList.at(2);
+    const squareButton4 = squareButtonList.at(4);
+    const squareButton8 = squareButtonList.at(8);
+
+    squareButton0.simulate("click");
+    squareButton1.simulate("click");
+    squareButton4.simulate("click");
+    squareButton2.simulate("click");
+    squareButton8.simulate("click");
+
+    const winnerMessage = wrapper.find("p").at(0);
+    expect(winnerMessage.text()).toEqual("Player X win the game");
+  });
 });
