@@ -23,9 +23,9 @@ const Game = () => {
   };
 
   return (
-    <div>
+    <div className="game">
       <h4>{`${constants.PLAYER_NEXT} ${gameState.activePlayer}`}</h4>
-      <ul>{renderSquare()}</ul>
+      <ul className="board">{renderSquare()}</ul>
     </div>
   );
 };
