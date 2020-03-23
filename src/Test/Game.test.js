@@ -24,6 +24,10 @@ describe("Game component", () => {
   it("Should have 9 squares in the board", () => {
     expect(wrapper.find("ul li").length).toEqual(9);
   });
+
+  it("Should render reset button", () => {
+    expect(wrapper.find("button").text()).toEqual("Play again");
+  });
 });
 
 describe("Game component functionality", () => {
@@ -154,5 +158,14 @@ describe("Game component functionality", () => {
 
     const winnerMessage = wrapper.find("p").at(0);
     expect(winnerMessage.text()).toEqual("Game drawn");
+  });
+
+  it("Should reset all the filled squares on play again button click", () => {
+    const resetButton = wrapper.find("button").at(9);
+    const squareButtonList = wrapper.find("ul li .square-button");
+
+    resetButton.simulate("click");
+
+    expect(squareButtonList.at(0).text()).toEqual("");
   });
 });

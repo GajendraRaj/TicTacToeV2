@@ -184,10 +184,17 @@ const Game = () => {
     );
   };
 
+  const resetHandler = () => {
+    setSquare([]);
+    setFilledSquareCount(0);
+    setGameState(initialState);
+  };
+
   return (
     <div className="game">
       <h4>{`${constants.PLAYER_NEXT} ${gameState.activePlayer}`}</h4>
       <ul className="board">{renderSquare()}</ul>
+      <button onClick={resetHandler}>Play again</button>
       {gameState.isGameOver && showGameOverMessage()}
     </div>
   );
