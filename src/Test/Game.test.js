@@ -108,4 +108,25 @@ describe("Game component functionality", () => {
     const winnerMessage = wrapper.find("p").at(0);
     expect(winnerMessage.text()).toEqual("Player X win the game");
   });
+
+  it("Should not proceed the game further, if player wins", () => {
+    const squareButtonList = wrapper.find("ul li .square-button");
+    const squareButton0 = squareButtonList.at(0);
+    const squareButton1 = squareButtonList.at(1);
+    const squareButton2 = squareButtonList.at(2);
+    const squareButton3 = squareButtonList.at(3);
+    const squareButton4 = squareButtonList.at(5);
+
+    squareButton0.simulate("click");
+    squareButton3.simulate("click");
+    squareButton1.simulate("click");
+    squareButton4.simulate("click");
+    squareButton2.simulate("click");
+
+    const squaresList = wrapper.find(Square);
+
+    squaresList.forEach(square => {
+      expect(square.props().isDisabled).toBeTruthy();
+    });
+  });
 });

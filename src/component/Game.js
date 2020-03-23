@@ -5,7 +5,8 @@ import Square from "./Square";
 const Game = () => {
   const initialState = {
     activePlayer: constants.PLAYER_X,
-    winner: null
+    winner: null,
+    isGameOver: false
   };
   const [gameState, setGameState] = useState(initialState);
   const [square, setSquare] = useState([]);
@@ -19,6 +20,7 @@ const Game = () => {
           <Square
             clickNotification={clickNotification.bind(this, i)}
             value={getFilledSquaresValue(i)}
+            isDisabled={isSquareDisabled(i)}
           />
         </li>
       );
@@ -49,6 +51,10 @@ const Game = () => {
       : constants.PLAYER_X;
   };
 
+  const isSquareDisabled = index => {
+    return square[index] || gameState.isGameOver ? true : false;
+  };
+
   const checkActivePlayerWintheGame = () => {
     if (
       isAnyRowCompletedByTheActivePlayer() ||
@@ -57,12 +63,14 @@ const Game = () => {
     ) {
       setGameState(prevState => ({
         ...prevState,
-        winner: gameState.activePlayer
+        winner: gameState.activePlayer,
+        isGameOver: true
       }));
     } else {
       setGameState(prevState => ({
         ...prevState,
-        activePlayer: getInactivePlayer()
+        activePlayer: getInactivePlayer(),
+        isGameOver: false
       }));
     }
   };
@@ -169,7 +177,7 @@ const Game = () => {
     <div className="game">
       <h4>{`${constants.PLAYER_NEXT} ${gameState.activePlayer}`}</h4>
       <ul className="board">{renderSquare()}</ul>
-      {showGameOverMessage()}
+      {gameState.isGameOver && showGameOverMessage()}
     </div>
   );
 };
