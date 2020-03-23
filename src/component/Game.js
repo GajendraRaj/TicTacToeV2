@@ -10,6 +10,7 @@ const Game = () => {
   };
   const [gameState, setGameState] = useState(initialState);
   const [square, setSquare] = useState([]);
+  const [filledSquareCount, setFilledSquareCount] = useState(0);
 
   const renderSquare = () => {
     let squareList = [];
@@ -38,6 +39,7 @@ const Game = () => {
       ...prevState,
       activePlayer: getInactivePlayer()
     }));
+    setFilledSquareCount(filledSquareCount + 1);
     checkActivePlayerWintheGame();
   };
 
@@ -64,6 +66,11 @@ const Game = () => {
       setGameState(prevState => ({
         ...prevState,
         winner: gameState.activePlayer,
+        isGameOver: true
+      }));
+    } else if (isGameDrawn()) {
+      setGameState(prevState => ({
+        ...prevState,
         isGameOver: true
       }));
     } else {
@@ -165,11 +172,15 @@ const Game = () => {
     );
   };
 
+  const isGameDrawn = () => {
+    return filledSquareCount === 8;
+  };
+
   const showGameOverMessage = () => {
     return gameState.winner ? (
       <p className="win-msg">{`Player ${gameState.winner} win the game`}</p>
     ) : (
-      <p>''</p>
+      <p>{"Game drawn"}</p>
     );
   };
 

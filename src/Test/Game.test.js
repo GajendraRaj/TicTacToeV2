@@ -129,4 +129,30 @@ describe("Game component functionality", () => {
       expect(square.props().isDisabled).toBeTruthy();
     });
   });
+
+  it("Should display game drawn message if all the squares filled in the board but not win", () => {
+    const squareButtonList = wrapper.find("ul li .square-button");
+    const squareButton0 = squareButtonList.at(0);
+    const squareButton1 = squareButtonList.at(1);
+    const squareButton2 = squareButtonList.at(2);
+    const squareButton3 = squareButtonList.at(3);
+    const squareButton4 = squareButtonList.at(4);
+    const squareButton5 = squareButtonList.at(5);
+    const squareButton6 = squareButtonList.at(6);
+    const squareButton7 = squareButtonList.at(7);
+    const squareButton8 = squareButtonList.at(8);
+
+    squareButton0.simulate("click");
+    squareButton1.simulate("click");
+    squareButton2.simulate("click");
+    squareButton6.simulate("click");
+    squareButton7.simulate("click");
+    squareButton8.simulate("click");
+    squareButton3.simulate("click");
+    squareButton4.simulate("click");
+    squareButton5.simulate("click");
+
+    const winnerMessage = wrapper.find("p").at(0);
+    expect(winnerMessage.text()).toEqual("Game drawn");
+  });
 });
